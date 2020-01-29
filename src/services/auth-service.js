@@ -1,7 +1,8 @@
 const jwtDecode = require('jwt-decode')
 const request = require('request')
 const url = require('url')
-const envVariables = require('../../../env')
+const envVariables = require('../../env')
+console.log('TCL: envVariables', envVariables)
 const keytar = require('keytar')
 const os = require('os')
 
@@ -70,7 +71,7 @@ function refreshTokens () {
       profile = jwtDecode(body.id_token)
 
       global.accessToken = accessToken
-
+      global.profile = profile
       resolve()
     })
   })
@@ -104,9 +105,15 @@ function loadTokens (callbackURL) {
       }
 
       const responseBody = JSON.parse(body)
+      console.log('TCL: loadTokens -> responseBody', responseBody)
+
       accessToken = responseBody.access_token
       global.accessToken = accessToken
+
       profile = jwtDecode(responseBody.id_token)
+      global.profile = profile
+
+      console.log('TCL: loadTokens -> profile', profile)
       refreshToken = responseBody.refresh_token
 
       keytar.setPassword(keytarService, keytarAccount, refreshToken)

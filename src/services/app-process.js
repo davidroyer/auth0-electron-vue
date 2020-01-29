@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron'
-
+import authService from './auth-service'
 let mainWindow
 const winURL =
   process.env.NODE_ENV === 'development'
@@ -19,6 +19,8 @@ function createAppWindow () {
       nodeIntegrationInWorker: true
     }
   })
+
+  console.log('app-process -> authService.getProfile()', authService.getProfile())
 
   mainWindow.loadURL(winURL)
 

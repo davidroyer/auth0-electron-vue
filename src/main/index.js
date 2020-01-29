@@ -1,9 +1,9 @@
 'use strict'
 
 import { app } from 'electron'
-import createAuthWindow from './services/auth-process'
-import createAppWindow from './services/app-process'
-import authService from './services/auth-service'
+import createAuthWindow from '../services/auth-process'
+import createAppWindow from '../services/app-process'
+import authService from '../services/auth-service'
 
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
